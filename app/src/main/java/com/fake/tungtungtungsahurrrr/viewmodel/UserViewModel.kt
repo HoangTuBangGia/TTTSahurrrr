@@ -34,7 +34,8 @@ class UserViewModel : ViewModel() {
         userRef.child(uid).addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val user = snapshot.getValue(UserModel::class.java)
-                _users.postValue(user)
+                if (user != null)
+                    _users.postValue(user)
             }
 
             override fun onCancelled(error: DatabaseError) {
